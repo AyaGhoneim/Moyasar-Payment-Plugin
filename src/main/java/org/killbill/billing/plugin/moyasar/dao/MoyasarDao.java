@@ -114,106 +114,7 @@ public class MoyasarDao extends PluginPaymentDao<MoyasarResponsesRecord, Moyasar
                 });
     }
 
-    // Responses
-
-//    public MoyasarResponsesRecord addResponse(final UUID kbAccountId,
-//                                                final UUID kbPaymentId,
-//                                                final UUID kbPaymentTransactionId,
-//                                                final TransactionType transactionType,
-//                                                final BigDecimal amount,
-//                                                final Currency currency,
-//                                                final DateTime utcNow,
-//                                                final UUID kbTenantId) throws SQLException {
-//        final Map<String, Object> additionalDataMap = MoyasarPluginProperties.toAdditionalDataMap();
-//
-//        return execute(dataSource.getConnection(),
-//                connection -> DSL.using(connection, dialect, settings).transactionResult(configuration -> {
-//                    final DSLContext dslContext = DSL.using(configuration);
-//                    dslContext.insertInto(MOYASAR_RESPONSES,
-//                                    MOYASAR_RESPONSES.KB_ACCOUNT_ID,
-//                                    MOYASAR_RESPONSES.KB_PAYMENT_ID,
-//                                    MOYASAR_RESPONSES.KB_PAYMENT_TRANSACTION_ID,
-//                                    MOYASAR_RESPONSES.TRANSACTION_TYPE,
-//                                    MOYASAR_RESPONSES.AMOUNT,
-//                                    MOYASAR_RESPONSES.CURRENCY,
-//                                    MOYASAR_RESPONSES.MOYASAR_ID,
-//                                    MOYASAR_RESPONSES.ADDITIONAL_DATA,
-//                                    MOYASAR_RESPONSES.CREATED_DATE,
-//                                    MOYASAR_RESPONSES.KB_TENANT_ID)
-//                            .values(kbAccountId.toString(),
-//                                    kbPaymentId.toString(),
-//                                    kbPaymentTransactionId.toString(),
-//                                    transactionType.toString(),
-//                                    amount,
-//                                    currency == null ? null : currency.name(),
-//                                    MoyasarClient.getTransactionInstance(moyasarResult).getId(),
-//                                    asString(additionalDataMap),
-//                                    toLocalDateTime(utcNow),
-//                                    kbTenantId.toString())
-//                            .execute();
-//                    return dslContext.fetchOne(MOYASAR_RESPONSES,
-//                            MOYASAR_RESPONSES.RECORD_ID.eq(MOYASAR_RESPONSES.RECORD_ID.getDataType().convert(dslContext.lastID())));
-//                }));
-//    }
-//
-//    public MoyasarResponsesRecord updateResponse(final UUID kbPaymentTransactionId,
-//                                                   final Iterable<PluginProperty> additionalPluginProperties,
-//                                                   final UUID kbTenantId) throws SQLException {
-//        final Map<String, Object> additionalProperties = PluginProperties.toMap(additionalPluginProperties);
-//        return updateResponse(kbPaymentTransactionId, additionalProperties, kbTenantId);
-//    }
-//
-//    public MoyasarResponsesRecord updateResponse(final UUID kbPaymentTransactionId,
-//                                                   final Map<String, Object> additionalProperties,
-//                                                   final UUID kbTenantId) throws SQLException {
-//        return execute(dataSource.getConnection(),
-//                new WithConnectionCallback<MoyasarResponsesRecord>() {
-//                    @Override
-//                    public MoyasarResponsesRecord withConnection(final Connection conn) throws SQLException {
-//                        final MoyasarResponsesRecord response = DSL.using(conn, dialect, settings)
-//                                .selectFrom(MOYASAR_RESPONSES)
-//                                .where(MOYASAR_RESPONSES.KB_PAYMENT_TRANSACTION_ID.equal(kbPaymentTransactionId.toString()))
-//                                .and(MOYASAR_RESPONSES.KB_TENANT_ID.equal(kbTenantId.toString()))
-//                                .orderBy(MOYASAR_RESPONSES.RECORD_ID.desc())
-//                                .limit(1)
-//                                .fetchOne();
-//
-//                        if (response == null) {
-//                            return null;
-//                        }
-//
-//                        final Map originalData = new HashMap(mapFromAdditionalDataString(response.getAdditionalData()));
-//                        originalData.putAll(additionalProperties);
-//
-//                        DSL.using(conn, dialect, settings)
-//                                .update(MOYASAR_RESPONSES)
-//                                .set(MOYASAR_RESPONSES.ADDITIONAL_DATA, asString(originalData))
-//                                .where(MOYASAR_RESPONSES.RECORD_ID.equal(response.getRecordId()))
-//                                .execute();
-//                        return response;
-//                    }
-//                });
-//    }
-//
-//    public void updateResponse(final MoyasarResponsesRecord moyasarResponsesRecord,
-//                               final Map additionalMetadata) throws SQLException {
-//        final Map additionalDataMap = mapFromAdditionalDataString(moyasarResponsesRecord.getAdditionalData());
-//        additionalDataMap.putAll(additionalMetadata);
-//
-//        execute(dataSource.getConnection(),
-//                new WithConnectionCallback<Void>() {
-//                    @Override
-//                    public Void withConnection(final Connection conn) throws SQLException {
-//                        DSL.using(conn, dialect, settings)
-//                                .update(MOYASAR_RESPONSES)
-//                                .set(MOYASAR_RESPONSES.ADDITIONAL_DATA, asString(additionalDataMap))
-//                                .where(MOYASAR_RESPONSES.RECORD_ID.equal(moyasarResponsesRecord.getRecordId()))
-//                                .execute();
-//                        return null;
-//                    }
-//                });
-//    }
-
+   
     @Override
     public MoyasarResponsesRecord getSuccessfulAuthorizationResponse(final UUID kbPaymentId, final UUID kbTenantId) throws SQLException {
         return execute(dataSource.getConnection(),
@@ -234,8 +135,6 @@ public class MoyasarDao extends PluginPaymentDao<MoyasarResponsesRecord, Moyasar
                     }
                 });
     }
-
-
     public static Map mapFromAdditionalDataString(@Nullable final String additionalData) {
         if (additionalData == null) {
             return ImmutableMap.of();
