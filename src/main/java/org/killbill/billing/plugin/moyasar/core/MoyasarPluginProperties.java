@@ -60,46 +60,6 @@ public abstract class MoyasarPluginProperties {
 
     public static final String PROPERTY_OVERRIDDEN_TRANSACTION_STATUS = "overriddenTransactionStatus";
 
-//    public static Map<String, Object> toAdditionalDataMap(final Result<Transaction> braintreeResult) {
-//
-//        final Map<String, Object> additionalDataMap = new HashMap<>();
-//        Transaction transaction = MoyasarClient.getTransactionInstance(braintreeResult);
-//        Transaction.Status status = transaction.getStatus();
-//
-//        additionalDataMap.put(PROPERTY_BT_TRANSACTION_STATUS, status);
-//        additionalDataMap.put(PROPERTY_BT_TRANSACTION_SUCCESS, braintreeResult.isSuccess());
-//        additionalDataMap.put(PROPERTY_BT_PAYMENT_INSTRUMENT_TYPE, transaction.getPaymentInstrumentType());
-//
-//        additionalDataMap.put(PROPERTY_BT_FIRST_PAYMENT_REFERENCE_ID, transaction.getId());
-//        additionalDataMap.put(PROPERTY_BT_SECOND_PAYMENT_REFERENCE_ID, transaction.getRetrievalReferenceNumber());
-//
-//        if(!braintreeResult.isSuccess()) {
-//            String gatewayErrorMessage;
-//            String gatewayErrorCode = null;
-//            if(status.equals(Transaction.Status.PROCESSOR_DECLINED)){
-//                gatewayErrorMessage = transaction.getProcessorResponseText();
-//                gatewayErrorCode = transaction.getProcessorResponseCode();
-//            }
-//            else if(status.equals(Transaction.Status.SETTLEMENT_DECLINED)){
-//                gatewayErrorMessage = transaction.getProcessorSettlementResponseText();
-//                gatewayErrorCode = transaction.getProcessorSettlementResponseCode();
-//            }
-//            else if(status.equals(Transaction.Status.GATEWAY_REJECTED)){
-//                gatewayErrorMessage = transaction.getNetworkResponseText() == null?
-//                        transaction.getGatewayRejectionReason().toString() : transaction.getNetworkResponseText();
-//                gatewayErrorCode = transaction.getNetworkResponseCode();
-//            }
-//            else{
-//                gatewayErrorMessage = braintreeResult.getMessage();
-//            }
-//
-//            additionalDataMap.put(PROPERTY_BT_GATEWAY_ERROR_MESSAGE, gatewayErrorMessage);
-//            if(gatewayErrorCode != null) additionalDataMap.put(PROPERTY_BT_GATEWAY_ERROR_CODE, gatewayErrorCode);
-//        }
-//
-//        return additionalDataMap;
-//    }
-
     public static Map<String, Object> toAdditionalDataMap(final PaymentMethod paymentMethod) {
         final Map<String, Object> additionalDataMap = new HashMap<String, Object>();
 
